@@ -31,20 +31,41 @@
 
         // Use back ticks for multiple line strings
         let defaultText =
-          `# Welcome to my React Markdown Previewer!
-          ## This is a sub heading
-          There is also an example link to my [github](https://github.com/belcher1)
-          ```
-          // Inline code!
-          console.log('hello world!');
-          ```
-          `;
+`# Welcome to my React Markdown Previewer!
+## This is a sub heading
+There is also an example link to my [github](https://github.com/belcher1)
+
+Some inline code \`<div>hello</div>\`
+
+\`\`\`
+// A code block
+console.log("hello world!");
+\`\`\`
+
+- And there are lists
+  - With multiple indentation levels
+
+> Block Quotes :)
+
+You can also have **bolded text** and images.
+All thanks to education at:`
+
+        let defaultImageText =
+`![freeCodeCamp Logo](https://upload.wikimedia.org/wikipedia/commons/3/39/FreeCodeCamp_logo.png)`;
 
         let editorField = document.getElementById("editor");
-        editorField.value = defaultText;
+        editorField.value = defaultText + defaultImageText;
+
+        let previewElement = document.getElementById("preview");
+        previewElement.innerHTML = marked.parse(defaultText + defaultImageText);
       }
 
     </script>
+    <style>
+      img {
+        width: 47.5vw;
+      }
+    </style>
   </head>
 
   <!-- Add onload -->
@@ -56,22 +77,18 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6">
-          <h2>Row 1, Col 1</h2>
-          <!-- Add onkeyup -->
-          <textarea id="editor" onkeyup="updatePreview()"></textarea>
+        <div class="col-6 d-flex flex-column">
+          <h2 class="text-center my-3">Editor</h2>
+          <div class="form-group flex-grow-1 d-flex flex-column">
+            <!-- Add onkeyup & bootstrap class of form-control-->
+            <textarea id="editor" onkeyup="updatePreview()" class="form-control flex-grow-1"></textarea>
+          </div>
         </div>
         <div class="col-6">
-          <h2>Row 1, Col 2</h2>
-          <div id="preview">
-          <div>
+          <h2 class="text-center my-3">Preview</h2>
+          <div id="preview"></div>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col">
-          <h2>Row 2</h2>
-        </div>
-      </div> -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
